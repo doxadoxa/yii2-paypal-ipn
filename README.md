@@ -70,17 +70,3 @@ Useful Links
 
 * [IpnSimulator](https://developer.paypal.com/developer/ipnSimulator)
 * [IPN History (SandBox PayPal Dashboard)](https://www.sandbox.paypal.com/au/cgi-bin/webscr?cmd=%5fdisplay%2dipns%2dhistory&nav=0%2e3%2e4)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
