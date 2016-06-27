@@ -25,6 +25,20 @@ class PayPalIPN
     public $sandbox = false;
 
     /**
+     * Debug mode
+     *
+     * @var bool
+     */
+    public $debug = false;
+
+    /**
+     * Needed for Live-mode
+     *
+     * @var string|null
+     */
+    public $projectName = null;
+
+    /**
      * @var string
      */
     private $sandboxUrl = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
@@ -44,13 +58,6 @@ class PayPalIPN
      * @var string
      */
     private $validateQuery = 'cmd=_notify-validate';
-
-    /**
-     * Debug mode
-     *
-     * @var bool
-     */
-    private $debug = false;
 
     /**
      * Data from IPN
@@ -88,7 +95,7 @@ class PayPalIPN
             $this->validateQuery .= '&' . $key . '=' . $value;
         }
 
-        $ch = ($this->sandbox) ? curl_init($this->liveUrl) : curl_init($this->sandboxUrl);
+        $ch = ($this->sandbox) ? curl_init($this->sandboxUrl) : curl_init($this->liveUrl);
 
         if ($ch == false) {
             Yii::info(date('[Y-m-d H:i e] ') . "Can't connect to PayPal to validate IPN message: " . curl_error($ch) . PHP_EOL, 'app');
@@ -103,7 +110,7 @@ class PayPalIPN
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 4);
         curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Connection: Close', 'User-Agent: ' . $this->projectName]);
 
         // SSL Verify
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
