@@ -127,9 +127,13 @@ class PayPalIPN
         $response = curl_exec($ch);
         $responseStatus = strval(curl_getinfo($ch, CURLINFO_HTTP_CODE));
 
-        Yii::info('Response: ' . print_r($response, true), 'app');
-        Yii::info('Response Status: ' . print_r($responseStatus, true), 'app');
-        Yii::info('cURL Error: ' . print_r(curl_error($ch), true), 'app');
+        if($this->debug) {
+            // Check if the request was successful or not
+            Yii::info('Response: ' . print_r($response, true), 'app');
+            Yii::info('Response Status: ' . print_r($responseStatus, true), 'app');
+            Yii::info('cURL Error No: ' . print_r(curl_errno($ch), true), 'app');
+            Yii::info('cURL Error: ' . print_r(curl_error($ch), true), 'app');
+        }
 
         if ($response === false || $responseStatus == '0') {
             $errNo = curl_errno($ch);
