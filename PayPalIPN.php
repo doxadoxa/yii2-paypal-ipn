@@ -3,7 +3,6 @@
 namespace sokoji\payPalIPN;
 
 use Yii;
-use yii\base\Component;
 use yii\base\Exception;
 
 /**
@@ -18,7 +17,7 @@ use yii\base\Exception;
  * @author Jon Chambers <jchambers.dev@gmail.com>
  * @author Kirill Arutyunov <kirill@arutynov.me>
  */
-class PayPalIPN extends Component
+class PayPalIPN
 {
     /**
      * @var bool sandbox mode
@@ -71,8 +70,6 @@ class PayPalIPN extends Component
     {
         $this->sandbox = $sandbox;
         $this->debug = $debug;
-
-        parent::__construct($config);
     }
 
     /**
