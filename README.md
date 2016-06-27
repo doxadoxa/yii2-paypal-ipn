@@ -14,13 +14,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-source "c006/yii2-paypal-ipn" "dev-master"
+php composer.phar require --prefer-source "sokoji/yii2-paypal-ipn" "dev-master"
 ```
 
 or add
 
 ```
-"c006/yii2-paypal-ipn": "dev-master"
+"sokoji/yii2-paypal-ipn": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
@@ -30,14 +30,27 @@ to the require section of your `composer.json` file.
 Usage
 -----
 
-Please view example PayPal Controller for usage.
-
-`Example\controllers\PaypalController.php`
-
-
-Testing: `https://developer.paypal.com/developer/ipnSimulator`
+Test with [IpnSimulator](https://developer.paypal.com/developer/ipnSimulator).
 
 You must sign up on the dev site to use.
+
+Example of action:
+
+```
+public function actionIPN()
+{
+    if (isset($_POST)) {
+        $ipn = new PayPalIPN(true, true); // sandbox = true, debug = true
+        if ($ipn->init()) {
+    
+            /* Get any key/value */
+            $custom = $ipn->getKeyValue('custom');
+    
+            // Do something with $custom
+        }
+    }
+}
+```
 
 
 
