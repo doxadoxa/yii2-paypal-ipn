@@ -105,6 +105,11 @@ class PayPalIPN
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
 
+        // SSL Verify
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
+        curl_setopt($ch, CURLOPT_CAINFO, dirname(dirname(__FILE__)) . '/cert/api_cert_chain.crt');
+
         if ($this->debug == true) {
             curl_setopt($ch, CURLOPT_HEADER, true);
             curl_setopt($ch, CURLINFO_HEADER_OUT, 1);
@@ -114,6 +119,10 @@ class PayPalIPN
 
         $response = curl_exec($ch);
         $responseStatus = strval(curl_getinfo($ch, CURLINFO_HTTP_CODE));
+
+        Yii::info('Response: ' . print_r($response, true), 'app');
+        Yii::info('Response Status: ' . print_r($responseStatus, true), 'app');
+        Yii::info('cURL Error: ' . print_r(curl_error($ch), true), 'app');
 
         if ($response === false || $responseStatus == '0') {
             $errNo = curl_errno($ch);
