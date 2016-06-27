@@ -1,6 +1,6 @@
 <?php
 
-namespace sokoji\payPalIPN;
+namespace sokoji\paypalipn;
 
 use yii;
 use yii\base\Exception;
