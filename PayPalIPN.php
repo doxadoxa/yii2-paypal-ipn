@@ -2,7 +2,7 @@
 
 namespace sokoji\payPalIPN;
 
-use Yii;
+use yii;
 use yii\base\Exception;
 
 /**
@@ -61,12 +61,10 @@ class PayPalIPN
 
 
     /**
-     * @param bool $sandbox
-     * @param bool $debug
-     * @param array $config
-     * @internal param bool $is_live
+     * @param bool $sandbox — use sandbox mode
+     * @param bool $debug   — use debug (log everything into app logfile)
      */
-    function __construct($sandbox = false, $debug = false, $config = [])
+    function __construct($sandbox = false, $debug = false)
     {
         $this->sandbox = $sandbox;
         $this->debug = $debug;
