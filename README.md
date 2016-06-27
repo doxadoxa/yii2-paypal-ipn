@@ -41,7 +41,7 @@ public function actionIPN()
 {
     if (isset($_POST)) {
         $ipn = new PayPalIPN(true, true); // sandbox = true, debug = true
-        if ($ipn->init()) {
+        if ($ipn->checkIpnRequest()) {
     
             /* Get any key/value */
             $custom = $ipn->getKeyValue('custom');
